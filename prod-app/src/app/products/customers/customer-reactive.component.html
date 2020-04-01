@@ -1,0 +1,89 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h3>Customer-Tempalate-Form</h3>
+        </div>
+        <div class="card-body">
+            <form novalidate
+             (ngSubmit)="save()"
+              [formGroup]="custRForm">
+                <div class="row">
+                <label class="col-md-2 col-form-label"
+                 for="firstNameId">FirstName</label>
+                <input class="form-control col-md-8" 
+                id="firstNameId" type="text"                 
+                    formControlName="firstName"
+                 [ngClass]="{'is-invalid':(custRForm.get('firstName').touched || custRForm.get('firstName').dirty)&& 
+                 !custRForm.get('firstName').valid}"
+                 placeholder="First Name (required)"/>
+                 <span class="invalid-feedback">
+                    <span *ngIf="custRForm.get('firstName').errors?.required">
+                        Last Name is mandatory</span>
+                        <span *ngIf="custRForm.get('firstName').errors?.minlength">
+                         First Name must be at contain least 3 characters  
+                        </span>
+                </span>
+
+                </div>
+                <br/>
+                <div class="row">
+                    <label class="col-md-2 col-form-label" for="LastNameId">
+                        LastName</label>
+                    <input class="form-control col-md-8" 
+                    id="lastNameId" type="text"
+                      required
+                      formControlName="lastName"
+                     placeholder="Last Name (required)" 
+                     maxlength="20" 
+                     [ngClass]="{'is-invalid':(custRForm.get('lastName').touched || custRForm.get('lastName').dirty) && !custRForm.get('lastName').valid}"/>
+                     <span class="invalid-feedback">
+                        <span *ngIf="custRForm.get('lastName').errors?.required">
+                            Last Name is mandatory</span>
+                            <span *ngIf="custRForm.get('lastName').errors?.maxlength">
+                             Last Name must not be more than 20 characters  
+                            </span>
+                    </span>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <label class="col-md-2" for="emailId">EmailId</label>
+                        <input class="form-control col-md-8" id="emailId" 
+                        type="email"
+                         formControlName="email"
+                         placeholder="format(abc@y)" 
+                        
+                         [ngClass]="{'is-invalid':(custRForm.get('email').touched || custRForm.get('email').dirty) && !custRForm.get('email').valid}"/>
+                         <span class="invalid-feedback">
+                            <span *ngIf="custRForm.get('email').errors?.email">
+                                Email address is invalid  
+                                </span>
+                        </span>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div class="offset-md-2 col-md-4">
+                            <input type="submit" 
+                            class="btn btn-primary"
+                            [title]="custRForm.valid ? 
+                            'Save the data entered': 
+                            'Disable until form data is valid'"
+                            value="Save" [disabled]="!custRForm.valid">
+                            <button class="btn btn-outline-secondary"
+                                type="button"
+                                (click)="showInitData()">
+                                InitData
+                            </button>
+                        </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    Dirty : {{custRForm.dirty}}
+    <br/>
+    Touched : {{custRForm.touched}}
+    <br/>
+    Valid : {{custRForm.valid}}
+    <br/>
+    Value: {{custRForm.value |json}}
+</div>
+

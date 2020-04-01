@@ -1,0 +1,78 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h3>Customer-Tempalate-Form</h3>
+        </div>
+        <div class="card-body">
+            <form #custTForm="ngForm"
+             (ngSubmit)="save(custTForm)">
+                <div class="row">
+                <label class="col-md-2 col-form-label"
+                 for="firstNameId">FirstName</label>
+                <input class="form-control col-md-8" 
+                id="firstNameId" type="text"
+                 [(ngModel)]="customer.firstName" required
+                 minlength="3" 
+                 #firstNameVar="ngModel"
+                 [ngClass]="{'is-invalid':(firstNameVar.touched || firstNameVar.dirty)&&!firstNameVar.valid}"
+                 placeholder="First Name (required)" name="firstName"/>
+                 <span class="invalid-feedback">
+                     <span *ngIf="firstNameVar.errors?.required">
+                         Name is mandatory</span>
+                         <span *ngIf="firstNameVar.errors?.minlength">
+                          Minimum characters for FirstName is 3   
+                         </span>
+                 </span>
+
+                </div>
+                <br/>
+                <div class="row">
+                    <label class="col-md-2 col-form-label" for="LastNameId">
+                        LastName</label>
+                    <input class="form-control col-md-8" 
+                    id="lastNameId" type="text"
+                     [(ngModel)]="customer.lastName" required
+                     placeholder="Last Name (required)" name="lastName"
+                     maxlength="20" #lastNameVar="ngModel"
+                     [ngClass]="{'is-invalid':(lastNameVar.touched || lastNameVar.dirty) && !lastNameVar.valid}"/>
+                     <span class="invalid-feedback">
+                        <span *ngIf="lastNameVar.errors?.required">
+                            Last Name is mandatory</span>
+                            <span *ngIf="lastNameVar.errors?.maxlength">
+                             Last Name must not be more than 20 characters  
+                            </span>
+                    </span>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <label class="col-md-2" for="emailId">EmailId</label>
+                        <input class="form-control col-md-8" id="emailId" 
+                        type="email"
+                         [(ngModel)]="customer.email"
+                         placeholder="format(abc@y)" name="email"
+                         #emailVar="ngModel"
+                         [ngClass]="{'is-invalid':(emailVar.touched || emailVar.dirty) && !emailVar.valid}"/>
+                         <span class="invalid-feedback">
+                            <span *ngIf="emailVar.errors?.email">
+                                Email address is invalid  
+                                </span>
+                        </span>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div>
+                            <input type="submit" class="btn btn-primary"
+                            value="Save" [disabled]="!custTForm.valid">
+                        </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    Dirty : {{custTForm.dirty}}
+    <br/>
+    Touched : {{custTForm.touched}}
+    <br/>
+    Valid : {{custTForm.valid}}
+    <br/>
+    Value: {{custTForm.value |json}}
+</div>
